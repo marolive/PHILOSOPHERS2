@@ -1,19 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   philosophers.c                                     :+:      :+:    :+:   */
+/*   routine.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: marolive <marolive@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/14 17:01:23 by marolive          #+#    #+#             */
-/*   Updated: 2023/01/17 09:17:20 by marolive         ###   ########.fr       */
+/*   Created: 2023/02/04 12:27:50 by marolive          #+#    #+#             */
+/*   Updated: 2023/02/04 16:22:19 by marolive         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
-int main(int argc, char **argv)
+void *routine(void)
 {
-    valid_digit(argc, argv);
-    return (0);
+    t_philo *philo;
+    
 }
