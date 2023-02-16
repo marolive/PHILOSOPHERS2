@@ -1,32 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   validation.c                                       :+:      :+:    :+:   */
+/*   actions.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: marolive <marolive@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/14 19:43:07 by marolive          #+#    #+#             */
-/*   Updated: 2023/02/16 00:20:06 by marolive         ###   ########.fr       */
+/*   Created: 2023/02/16 08:01:14 by marolive          #+#    #+#             */
+/*   Updated: 2023/02/16 10:23:26 by marolive         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../philosophers.h"
+#include "philosophers.h"
 
-int    valid_digit(char **argv)
+void sleeping(t_data *data)
 {
-    int i;
-    int j;
-
-    i = 1;
-    while(argv[i])
-    {
-        j = 0;
-        while (argv[i][j])
-        {
-            if(argv[i][j] >= '1' && argv[i][j] <= '9')
-                return (1);
-            j++;
-        }
-    return (0);
+    print_act(data, "Durminu!");
+    usleep(data->time_to_sleep * 1000);
 }
 
+void thinking(t_data *data)
+{
+    print_act(data, "Pensanu!");
+}
+
+void eating(t_data *data)
+{
+    t_philo *philo;
+    
+    pthread_mutex_lock(&data->mutex_fork[philo->l_fork]);
+    pthread_mutex_lock(&data->mutex_fork[philo->r_fork]);
+    
+    
+    
+}

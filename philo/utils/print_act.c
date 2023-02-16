@@ -1,32 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   validation.c                                       :+:      :+:    :+:   */
+/*   print_act.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: marolive <marolive@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/14 19:43:07 by marolive          #+#    #+#             */
-/*   Updated: 2023/02/16 00:20:06 by marolive         ###   ########.fr       */
+/*   Created: 2023/02/06 16:53:44 by marolive          #+#    #+#             */
+/*   Updated: 2023/02/16 08:09:07 by marolive         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../philosophers.h"
+#include "philosophers.h"
 
-int    valid_digit(char **argv)
+void print_act(t_data *data, char *str)
 {
-    int i;
-    int j;
-
-    i = 1;
-    while(argv[i])
-    {
-        j = 0;
-        while (argv[i][j])
-        {
-            if(argv[i][j] >= '1' && argv[i][j] <= '9')
-                return (1);
-            j++;
-        }
-    return (0);
+    pthread_mutex_lock(&data->mutex_print);
+    printf("%ld, %d, %s\n", get_time(), data->ph->name_philo, str);
+    pthread_mutex_unlock(&data->mutex_print);
 }
-

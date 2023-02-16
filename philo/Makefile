@@ -2,7 +2,9 @@ CC = cc
 CFLAGS = -Wall -Wextra -Werror 
 RM = rm -rf
 NAME = philo
-SRCS =	philosophers.c	utils/validation.c utils/ft_atoi_ws.c
+SRCS = philosophers.c /
+		utils/validation.c /
+		utils/ft_atoi_ws.c
 
 $(NAME):  all
 
