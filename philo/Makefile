@@ -1,14 +1,18 @@
 CC = cc
-CFLAGS = -Wall -Wextra -Werror 
+CFLAGS = -Wall -Wextra -Werror -g
 RM = rm -rf
 NAME = philo
-SRCS = philosophers.c /
-		utils/validation.c /
-		utils/ft_atoi_ws.c
+SRCS = philosophers.c \
+		utils/validation.c \
+		utils/atoi_ws.c \
+		utils/get_time.c \
+		utils/print_act.c \
+		operations/actions.c \
+		operations/routine.c \
+		operations/initial.c
 
-$(NAME):  all
 
-all:  $(PHILO)
+all: $(NAME)
 
 ${NAME}: $(SRCS)
 	$(CC) $(CFLAGS) $(SRCS) -o $(NAME)
