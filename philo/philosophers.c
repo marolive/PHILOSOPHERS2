@@ -6,7 +6,7 @@
 /*   By: marolive <marolive@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/14 17:01:23 by marolive          #+#    #+#             */
-/*   Updated: 2023/03/03 16:23:18 by marolive         ###   ########.fr       */
+/*   Updated: 2023/03/08 20:15:28 by marolive         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,17 +15,23 @@
 int main(int argc, char **argv)
 {
     t_data  data;
-    t_philo philo;
 
     if (argc == 5 || argc == 6)
     {
-        philo.philo = malloc(sizeof(pthread_t) * data.number_of_philos);
+        int i = 0;
+        data.ph = malloc(sizeof(t_philo) * data.number_of_philos);
+        data.mutex_fork = malloc(sizeof(pthread_mutex_t) * data.number_of_philos);
         if(valid_digit(argv))
             return (0);
+        init_mutex(&data);
         arg_value(&data, argc, argv);
-        phi_value(&data);
+        philo_create(&data);
         
-
+        while (i < data.number_of_philos)
+        {
+            pthread_join(data.ph[i].philo, NULL);
+            i++;
+        } 
     }
     else
         printf("Invalid number of arguments!\n");

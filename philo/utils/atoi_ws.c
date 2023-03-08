@@ -6,13 +6,13 @@
 /*   By: marolive <marolive@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/11 08:48:45 by marolive          #+#    #+#             */
-/*   Updated: 2023/02/28 19:17:34 by marolive         ###   ########.fr       */
+/*   Updated: 2023/03/07 17:22:30 by marolive         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../philosophers.h"
 
-int	atoi_ws(const char *str)
+long	atoi_ws(const char *str)
 {
 	long			resul;
 	unsigned int	i;
@@ -26,5 +26,5 @@ int	atoi_ws(const char *str)
 		resul = resul * 10 + str[i] - '0';
 		i++;
 	}
-	return ((int)resul);
+	return (resul);
 }

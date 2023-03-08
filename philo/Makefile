@@ -15,7 +15,7 @@ SRCS = philosophers.c \
 all: $(NAME)
 
 ${NAME}: $(SRCS)
-	$(CC) $(CFLAGS) $(SRCS) -o $(NAME)
+	$(CC) $(CFLAGS) $(SRCS) -o $(NAME) -g
 
 clean:
 	$(RM) $(NAME)
