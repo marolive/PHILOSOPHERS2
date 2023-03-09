@@ -6,7 +6,7 @@
 /*   By: marolive <marolive@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/14 19:43:07 by marolive          #+#    #+#             */
-/*   Updated: 2023/03/02 11:52:15 by marolive         ###   ########.fr       */
+/*   Updated: 2023/03/09 19:13:37 by marolive         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,4 +38,18 @@ int    valid_digit(char **argv)
         i++;
     }
     return (0);
+}
+
+void is_dead(t_philo *philo)
+{
+    if ((philo->table->time_to_eat + philo->table->time_to_sleep) > philo->table->time_to_die)
+    {
+        pthread_mutex_lock(&philo->table->mutex_dead);
+        if (philo->table->faliceu == 0)
+        {
+            print_act(philo, "faliceu!");
+            philo->table->faliceu = 1;
+        }
+        pthread_mutex_unlock(&philo->table->mutex_dead);
+    }
 }

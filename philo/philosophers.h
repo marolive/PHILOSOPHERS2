@@ -6,7 +6,7 @@
 /*   By: marolive <marolive@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/14 17:57:51 by marolive          #+#    #+#             */
-/*   Updated: 2023/03/08 20:13:58 by marolive         ###   ########.fr       */
+/*   Updated: 2023/03/09 19:11:37 by marolive         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,10 +37,12 @@ typedef struct s_data
     long            time_to_eat;
     long            time_to_die;
     long            time_to_sleep;
-    long          start_time;
+    long            start_time;
     int             number_of_philos;
     int             num_time_eating;
+    int             faliceu;
     pthread_mutex_t mutex_print;
+    pthread_mutex_t mutex_dead;
     pthread_mutex_t *mutex_fork;
     pthread_mutex_t *mutex_monitor;
     t_philo         *ph;
@@ -59,6 +61,7 @@ void take_fork(t_philo *philo);
 void sleeping(t_philo *philo);
 void thinking(t_philo *philo);
 void eating(t_philo *philo);
+void is_dead(t_philo *philo);
 
 long get_time();
 void sleep_easy(long duration, t_philo *philo);

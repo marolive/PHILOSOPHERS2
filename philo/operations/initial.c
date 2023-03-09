@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   initial.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vde-vasc <vde-vasc@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marolive <marolive@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 18:18:43 by marolive          #+#    #+#             */
-/*   Updated: 2023/03/09 17:30:47 by vde-vasc         ###   ########.fr       */
+/*   Updated: 2023/03/09 18:59:37 by marolive         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ void philo_create(t_data *data)
         pthread_create(&data->ph[i].philo, NULL, &routine, &data->ph[i]);
         i++;
     }
+    data->ph->last_meal = 0;
 }
 
 void    init_mutex(t_data *data)
@@ -52,6 +53,7 @@ void    init_mutex(t_data *data)
     int i;
     
     i = 0;
+    pthread_mutex_init(&data->mutex_dead, NULL);
     pthread_mutex_init(&data->mutex_print, NULL);
     while (i < data->number_of_philos)
     {

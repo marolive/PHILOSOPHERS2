@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philosophers.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vde-vasc <vde-vasc@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marolive <marolive@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/14 17:01:23 by marolive          #+#    #+#             */
-/*   Updated: 2023/03/09 17:30:20 by vde-vasc         ###   ########.fr       */
+/*   Updated: 2023/03/09 19:11:45 by marolive         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ int main(int argc, char **argv)
     if (argc == 5 || argc == 6)
     {
         int i = 0;
+        data.faliceu = 0;
         if(valid_digit(argv))
             return (0);
         arg_value(&data, argc, argv);
