@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   initial.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marolive <marolive@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vde-vasc <vde-vasc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 18:18:43 by marolive          #+#    #+#             */
-/*   Updated: 2023/03/08 19:48:11 by marolive         ###   ########.fr       */
+/*   Updated: 2023/03/09 17:30:47 by vde-vasc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,6 @@
 
 void arg_value(t_data *data, int argc, char **argv)
 {
-/*     int i;
-    
-    i = atoi_ws(argv[1] - 1); */
-    //pthread_mutex_init(&data->mutex_print, NULL);
     data->start_time = get_time();
     data->number_of_philos = atoi_ws(argv[1]);
     data->time_to_die = atoi_ws(argv[2]);
@@ -27,12 +23,8 @@ void arg_value(t_data *data, int argc, char **argv)
         data->num_time_eating = atoi_ws(argv[5]);
     else
         data->num_time_eating = -1;
-/*     while (i > 0)
-    {
-        pthread_mutex_init(&data->mutex_fork[i], NULL);
-        i--;
-    } */
-
+    data->ph = malloc(sizeof(t_philo) * data->number_of_philos);
+    data->mutex_fork = malloc(sizeof(pthread_mutex_t) * data->number_of_philos);
 }
 
 void philo_create(t_data *data)
@@ -40,11 +32,8 @@ void philo_create(t_data *data)
     int i;
 
     i = 0;
-    //data->mutex_fork = malloc(sizeof(pthread_mutex_t) * data->number_of_philos);
     while (i < data->number_of_philos)
     {
-        //pthread_mutex_init(&data->mutex_fork[i], NULL);
-        //data->ph[i].last_meal = now_time();
         data->ph[i].id = i;
         data->ph[i].l_fork = i;
         data->ph[i].index_philo = i + 1;
@@ -56,12 +45,6 @@ void philo_create(t_data *data)
         pthread_create(&data->ph[i].philo, NULL, &routine, &data->ph[i]);
         i++;
     }
-    //i = 0;
-/*     while (i < data->number_of_philos)
-    {
-        pthread_join(data->ph[i].philo, NULL);
-        i++;
-    }  */
 }
 
 void    init_mutex(t_data *data)
