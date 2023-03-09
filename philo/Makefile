@@ -1,5 +1,5 @@
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -g -pthread
+CFLAGS = -Wall -Wextra -Werror -pthread
 RM = rm -rf
 NAME = philo
 SRCS = philosophers.c \
