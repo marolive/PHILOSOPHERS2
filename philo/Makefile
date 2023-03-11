@@ -15,7 +15,8 @@ SRCS = philosophers.c \
 all: $(NAME)
 
 ${NAME}: $(SRCS)
-	$(CC) $(CFLAGS) $(SRCS) -o $(NAME) -g
+	$(CC) $(CFLAGS) $(SRCS) -o $(NAME) -g 
+#-fsanitize=thread
 
 clean:
 	$(RM) $(NAME)

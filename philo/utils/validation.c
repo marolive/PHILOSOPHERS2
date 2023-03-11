@@ -6,7 +6,7 @@
 /*   By: marolive <marolive@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/14 19:43:07 by marolive          #+#    #+#             */
-/*   Updated: 2023/03/09 19:13:37 by marolive         ###   ########.fr       */
+/*   Updated: 2023/03/11 18:51:16 by marolive         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,14 +42,41 @@ int    valid_digit(char **argv)
 
 void is_dead(t_philo *philo)
 {
-    if ((philo->table->time_to_eat + philo->table->time_to_sleep) > philo->table->time_to_die)
+    if ((now_time(philo) - philo->last_meal) > philo->table->time_to_die)
     {
         pthread_mutex_lock(&philo->table->mutex_dead);
-        if (philo->table->faliceu == 0)
+        if (philo->table->is_dead == 0)
         {
-            print_act(philo, "faliceu!");
-            philo->table->faliceu = 1;
+            pthread_mutex_lock(&philo->table->mutex_print);
+            printf("%ld, %d, %s\n", now_time(philo), philo->index_philo, "died");
+            philo->table->is_dead = 1;
+            pthread_mutex_unlock(&philo->table->mutex_print);
         }
         pthread_mutex_unlock(&philo->table->mutex_dead);
     }
+}
+int one_fork(t_philo *philo)
+{
+    pthread_mutex_lock(&philo->table->mutex_dead);
+    if(philo->table->number_of_philos == 1)
+    {
+        pthread_mutex_lock(&philo->table->mutex_print);
+        printf("%ld, %d, %s\n", now_time(philo), philo->index_philo, "has taken a fork");
+        printf("%ld, %d, %s\n", now_time(philo), philo->index_philo, "died");
+        pthread_mutex_unlock(&philo->table->mutex_print);
+        return(1);
+    }
+    pthread_mutex_unlock(&philo->table->mutex_dead);
+    return (0);
+}
+
+void destroy_mutex(t_data *data)
+{
+    int i;
+
+    i = 0;
+    pthread_mutex_destroy(&data->mutex_dead);
+    pthread_mutex_destroy(&data->mutex_print);
+    while(i < data->number_of_philos)
+        pthread_mutex_destroy(&data->mutex_fork[i++]);
 }

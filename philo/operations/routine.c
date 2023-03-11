@@ -6,11 +6,13 @@
 /*   By: marolive <marolive@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/04 12:27:50 by marolive          #+#    #+#             */
-/*   Updated: 2023/03/09 19:14:04 by marolive         ###   ########.fr       */
+/*   Updated: 2023/03/11 18:21:57 by marolive         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../philosophers.h"
+
+
 
 void *routine(void *arg)
 {
@@ -18,10 +20,14 @@ void *routine(void *arg)
     
     philo = (t_philo *)arg;
     if ((philo->id % 2) != 0)
-        usleep(1000);
+        usleep(500);
     while(1)
     {
-        if (philo->table->faliceu == 1)
+        pthread_mutex_lock(&philo->table->mutex_dead);
+        if (philo->table->is_dead == 1 || philo->ate == philo->table->num_time_eating)
+            break ;
+        pthread_mutex_unlock(&philo->table->mutex_dead);
+        if(one_fork(philo) == 1)
             break ;
         take_fork(philo);
         eating(philo);
@@ -29,5 +35,6 @@ void *routine(void *arg)
         thinking(philo); 
         is_dead(philo);
     }
+    pthread_mutex_unlock(&philo->table->mutex_dead);
     return (NULL);
 }

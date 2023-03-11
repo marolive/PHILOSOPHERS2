@@ -6,7 +6,7 @@
 /*   By: marolive <marolive@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 18:18:43 by marolive          #+#    #+#             */
-/*   Updated: 2023/03/09 18:59:37 by marolive         ###   ########.fr       */
+/*   Updated: 2023/03/11 18:20:31 by marolive         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,10 +42,11 @@ void philo_create(t_data *data)
         else
             data->ph[i].r_fork = 0;
         data->ph[i].table = data;
+        data->ph[i].last_meal = 0;
+        data->ph[i].ate = 0;
         pthread_create(&data->ph[i].philo, NULL, &routine, &data->ph[i]);
         i++;
     }
-    data->ph->last_meal = 0;
 }
 
 void    init_mutex(t_data *data)
@@ -59,5 +60,14 @@ void    init_mutex(t_data *data)
     {
         pthread_mutex_init(&data->mutex_fork[i], NULL);
         i++;
+    }
+}
+
+void    philo_value(t_data *data)
+{
+    if(data->number_of_philos == 0)
+    {
+        printf("Don't pass zero Philosophers!\n");
+        return ;
     }
 }

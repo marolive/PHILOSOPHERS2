@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   actions.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vde-vasc <vde-vasc@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marolive <marolive@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 08:01:14 by marolive          #+#    #+#             */
-/*   Updated: 2023/03/09 17:30:55 by vde-vasc         ###   ########.fr       */
+/*   Updated: 2023/03/11 18:28:24 by marolive         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,45 +14,49 @@
 
 void take_fork(t_philo *philo)
 {
-   if ((philo->id % 2) != 0)
+   if ((philo->id % 2) != 0 && philo->index_philo != philo->table->number_of_philos)
    {
       pthread_mutex_lock(&philo->table->mutex_fork[philo->l_fork]);
-      print_act(philo, "pegou o f_left!");
+      print_act(philo, "has taken a fork");
       pthread_mutex_lock(&philo->table->mutex_fork[philo->r_fork]);
-      print_act(philo, "pegou o f_right!");
+      print_act(philo, "has taken a fork");
    }
    else
    {
       pthread_mutex_lock(&philo->table->mutex_fork[philo->r_fork]);
-      print_act(philo, "pegou o f_right!");
+      print_act(philo, "has taken a fork");
       pthread_mutex_lock(&philo->table->mutex_fork[philo->l_fork]);
-      print_act(philo, "pegou o f_left!");
+      print_act(philo, "has taken a fork");
    }
 }
 
 void sleeping(t_philo *philo)
 {
-   print_act(philo, "sleeping!");
+   print_act(philo, "is sleeping");
    sleep_easy(philo->table->time_to_sleep, philo);
 }
 
 void thinking(t_philo *philo)
 {
-   print_act(philo, "thinking!");
+   print_act(philo, "is thinking");
 }
 
 void eating(t_philo *philo)
 {
    if ((philo->id % 2) != 0)
    {
-      print_act(philo, "eating!");
+      print_act(philo, "is eating");
+      philo->last_meal = now_time(philo);
+      philo->ate += 1;
       sleep_easy(philo->table->time_to_eat , philo);
       pthread_mutex_unlock(&philo->table->mutex_fork[philo->l_fork]);
       pthread_mutex_unlock(&philo->table->mutex_fork[philo->r_fork]);
    }
    else
    {
-      print_act(philo, "eating!");
+      print_act(philo, "is eating");
+      philo->last_meal = now_time(philo);
+      philo->ate += 1;
       sleep_easy(philo->table->time_to_eat, philo);
       pthread_mutex_unlock(&philo->table->mutex_fork[philo->r_fork]);
       pthread_mutex_unlock(&philo->table->mutex_fork[philo->l_fork]);
