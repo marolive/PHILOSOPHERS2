@@ -6,7 +6,7 @@
 /*   By: marolive <marolive@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 18:18:43 by marolive          #+#    #+#             */
-/*   Updated: 2023/03/11 18:20:31 by marolive         ###   ########.fr       */
+/*   Updated: 2023/03/11 21:33:43 by marolive         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,8 @@ void philo_create(t_data *data)
         pthread_create(&data->ph[i].philo, NULL, &routine, &data->ph[i]);
         i++;
     }
+    if (data->number_of_philos != 1)
+        scan_dead(data->ph);
 }
 
 void    init_mutex(t_data *data)
@@ -55,6 +57,7 @@ void    init_mutex(t_data *data)
     
     i = 0;
     pthread_mutex_init(&data->mutex_dead, NULL);
+    pthread_mutex_init(&data->mutex_meal, NULL);
     pthread_mutex_init(&data->mutex_print, NULL);
     while (i < data->number_of_philos)
     {

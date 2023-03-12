@@ -6,7 +6,7 @@
 /*   By: marolive <marolive@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/14 17:57:51 by marolive          #+#    #+#             */
-/*   Updated: 2023/03/11 18:52:51 by marolive         ###   ########.fr       */
+/*   Updated: 2023/03/11 21:29:52 by marolive         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ typedef struct s_data
     long            start_time;
     pthread_mutex_t mutex_print;
     pthread_mutex_t mutex_dead;
+    pthread_mutex_t mutex_meal;
     pthread_mutex_t *mutex_fork;
     t_philo         *ph;
 }   t_data;
@@ -57,6 +58,8 @@ void arg_value(t_data *data, int argc, char **argv);
 void init_mutex(t_data *data);
 void philo_create(t_data *data);
 void destroy_mutex(t_data *data);
+
+void scan_dead(t_philo *philo);
 
 void *routine(void *arg);
 int  one_fork(t_philo *philo);

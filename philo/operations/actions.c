@@ -6,7 +6,7 @@
 /*   By: marolive <marolive@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 08:01:14 by marolive          #+#    #+#             */
-/*   Updated: 2023/03/11 18:28:24 by marolive         ###   ########.fr       */
+/*   Updated: 2023/03/11 21:26:58 by marolive         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,9 @@ void eating(t_philo *philo)
    if ((philo->id % 2) != 0)
    {
       print_act(philo, "is eating");
+      pthread_mutex_lock(&philo->table->mutex_meal);
       philo->last_meal = now_time(philo);
+      pthread_mutex_unlock(&philo->table->mutex_meal);
       philo->ate += 1;
       sleep_easy(philo->table->time_to_eat , philo);
       pthread_mutex_unlock(&philo->table->mutex_fork[philo->l_fork]);
@@ -55,7 +57,9 @@ void eating(t_philo *philo)
    else
    {
       print_act(philo, "is eating");
+      pthread_mutex_lock(&philo->table->mutex_meal);
       philo->last_meal = now_time(philo);
+      pthread_mutex_unlock(&philo->table->mutex_meal);
       philo->ate += 1;
       sleep_easy(philo->table->time_to_eat, philo);
       pthread_mutex_unlock(&philo->table->mutex_fork[philo->r_fork]);

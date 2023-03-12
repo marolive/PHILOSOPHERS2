@@ -6,7 +6,7 @@
 /*   By: marolive <marolive@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/14 19:43:07 by marolive          #+#    #+#             */
-/*   Updated: 2023/03/11 18:51:16 by marolive         ###   ########.fr       */
+/*   Updated: 2023/03/11 20:46:06 by marolive         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ void is_dead(t_philo *philo)
         if (philo->table->is_dead == 0)
         {
             pthread_mutex_lock(&philo->table->mutex_print);
-            printf("%ld, %d, %s\n", now_time(philo), philo->index_philo, "died");
+            printf("%ld %d %s\n", now_time(philo) , philo->index_philo, "died");
             philo->table->is_dead = 1;
             pthread_mutex_unlock(&philo->table->mutex_print);
         }
@@ -62,6 +62,7 @@ int one_fork(t_philo *philo)
     {
         pthread_mutex_lock(&philo->table->mutex_print);
         printf("%ld, %d, %s\n", now_time(philo), philo->index_philo, "has taken a fork");
+        sleep_easy(philo->table->time_to_die, philo);
         printf("%ld, %d, %s\n", now_time(philo), philo->index_philo, "died");
         pthread_mutex_unlock(&philo->table->mutex_print);
         return(1);
